@@ -1,0 +1,45 @@
+# daily-tarot
+
+> A daily Rider-Waite-Smith tarot card with its upright/reversed reading.
+
+A self-contained widget for [Übersicht](http://tracesof.net/uebersicht/). The
+entire widget lives in `index.jsx` (the shared design system is inlined), so it
+runs on any Mac with no extra files beyond the bundled assets.
+
+![screenshot](screenshot.png)
+
+## Install
+
+1. Install and run [Übersicht](http://tracesof.net/uebersicht/).
+2. Unzip `daily-tarot.widget.zip`, or copy the `daily-tarot.widget` folder into your
+   Übersicht widgets directory:
+   `~/Library/Application Support/Übersicht/widgets/`
+3. Refresh Übersicht (menu bar icon -> Refresh All).
+
+## Notes
+
+- Fully offline; the card flips on hover.
+- Card art: Rider-Waite-Smith Tarot Cards by Luciella Elisabeth Scarlett (CC0): https://luciellaes.itch.io/rider-waite-smith-tarot-cards-cc0
+- Optional: install the Instrument Serif and Geist font families for the intended typography; system fonts are used as a fallback.
+
+## How to edit
+
+Card names and meanings live in the MAJOR, SUITS, and RANKS arrays in index.jsx.
+
+All visual styling (colors, fonts, the card shell, drag/resize handles) is in
+the inlined design-system block at the top of `index.jsx`.
+
+## Bundled files
+
+- `index.jsx`
+- `cards-png`
+
+## Submitting to the Übersicht gallery
+
+Create a public GitHub repo with `widget.json`, `daily-tarot.widget.zip`, and a
+258x160 (or 516x320 hi-res) `screenshot.png`, then
+[open an issue](https://github.com/felixhageloh/uebersicht-widgets/issues) with the URL.
+
+## Author
+
+Jalen Edusei <jalen.edusei@gmail.com>
