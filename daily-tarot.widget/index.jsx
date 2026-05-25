@@ -482,11 +482,11 @@ export const render = () => {
       <ResizeHandle k="tarot" />
       <div className="card">
         <div className="face">
-          <img className="cardimg" src="cards-png/CardBacks.png" />
+          <img className="cardimg" src="daily-tarot.widget/cards-png/CardBacks.png" />
           <div className="frame" />
         </div>
         <div className="back">
-          <img className={`cardimg ${reversed ? "rev" : ""}`} src={`cards-png/${c.file}`} />
+          <img className={`cardimg ${reversed ? "rev" : ""}`} src={`daily-tarot.widget/cards-png/${c.file}`} />
           <div className="frame" />
           <div className="ctop">
             <div className="cname">{c.name}{reversed ? " · reversed" : " · upright"}</div>
