@@ -131,7 +131,7 @@ const card = (variant, w, h, x = 0, y = 0) => `
   .ws-drag  { position:absolute; top:6px; left:6px; z-index:30;
               width:18px; height:18px; border-radius:6px;
               display:flex; align-items:center; justify-content:center;
-              font-size:11px; line-height:1; cursor:grab; opacity:0.42;
+              font-size:11px; line-height:1; cursor:grab; opacity:0.22;
               transition:opacity .15s ease; user-select:none;
               -webkit-user-select:none;
               color:${variant === "dark" ? T.onDarkMute : T.inkMute};
@@ -143,7 +143,7 @@ const card = (variant, w, h, x = 0, y = 0) => `
   .ws-resize { position:absolute; bottom:5px; right:5px; z-index:30;
                width:16px; height:16px; border-radius:5px;
                display:flex; align-items:center; justify-content:center;
-               font-size:11px; line-height:1; cursor:nwse-resize; opacity:0.42;
+               font-size:11px; line-height:1; cursor:nwse-resize; opacity:0.22;
                transition:opacity .15s ease; user-select:none;
                -webkit-user-select:none;
                color:${variant === "dark" ? T.onDarkMute : T.inkMute};
@@ -424,37 +424,43 @@ const DECK = [
       ({ num, glyph, name: `${rLabel} of ${sName}`, heading: sUp, reading: up, rHeading: sDown, rReading: rev,
          file: `${sName}${String(ri + 1).padStart(2, "0")}.png` }))),
 ];
-const FONTS = "daily-tarot.widget/fonts";
-// A reading laid on burgundy velvet inside a thin gilt fillet: the card sits
-// large in a gold edge with corner brackets, the name is set in an inline
-// engraved capital face, and the reading below it in an italic old-style
-// serif. Hover turns the card over to its back; the draw is stable all day.
-export const className = card("dark", 240, 372, ...LAYOUT.tarot) + `
-  @font-face { font-family: "Cinzel Decorative"; src: url("${FONTS}/CinzelDecorative-700.woff2") format("woff2"); font-weight: 700; }
-  @font-face { font-family: "Cormorant Garamond"; src: url("${FONTS}/CormorantGaramond-500Italic.woff2") format("woff2"); font-weight: 500; font-style: italic; }
-  @font-face { font-family: "Cormorant Garamond"; src: url("${FONTS}/CormorantGaramond-600.woff2") format("woff2"); font-weight: 600; }
-  --gold: #D8B25C; --gold2: #8E6A22; --velvet: #4A1220;
-  padding: 0; border-radius: 6px; backdrop-filter: none; overflow: hidden; user-select:none; -webkit-user-select:none;
-  background: radial-gradient(ellipse 90% 70% at 50% 30%, #6E1F33 0%, var(--velvet) 55%, #2E0A14 100%);
-  box-shadow: 0 30px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(216,178,92,0.35), inset 0 0 40px rgba(0,0,0,0.5);
-  &::before { content:""; position:absolute; inset:0; pointer-events:none; opacity: 0.7; mix-blend-mode: soft-light; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E"); }
-  &::after { content:""; position:absolute; inset: 6px; pointer-events:none; border: 1px solid rgba(216,178,92,0.45); border-radius: 3px; }
-  .ws-drag { top: 10px; left: 10px; color: #E8CF8C; background: rgba(0,0,0,0.25); } .ws-resize { bottom: 10px; right: 10px; color: #E8CF8C; background: rgba(0,0,0,0.25); }
-  .card { position:absolute; left: 45px; top: 22px; width: 150px; height: 255px; perspective: 900px; cursor: pointer; }
-  .card > div { position:absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: transform 0.7s cubic-bezier(.4,.1,.2,1); border-radius: 6px; overflow:hidden; background:#1a0a10;
-                box-shadow: 0 12px 24px rgba(0,0,0,0.55), 0 0 0 3px var(--gold), 0 0 0 4px var(--gold2); }
-  .cardimg { width: 100%; height: 100%; object-fit: cover; display:block; }
+
+export const className = card("light", 180, 240, ...LAYOUT.tarot) + `
+  background: transparent; box-shadow: none; backdrop-filter: none; overflow: visible;
+  padding: 0; display: flex; align-items: center; justify-content: center;
+  .card   { width:140px; height:240px; border-radius:10px;
+            transform:rotate(-3deg); position:relative;
+            transition: transform 0.5s ease 0.12s;
+            transform-style: preserve-3d; -webkit-transform-style: preserve-3d; }
+  .card:hover { transform: rotate(-3deg) rotateY(180deg); }
+  @media (prefers-reduced-motion: reduce) {
+    .card { transition: none; }
+    .card:hover { transform: rotate(-3deg); }
+  }
+  .face, .back { position:absolute; inset:0; border-radius:10px; overflow:hidden;
+                 background:transparent; box-shadow:0 8px 22px rgba(0,0,0,0.32);
+                 backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .face   { transform: rotateY(0deg); }
+  .back   { transform: rotateY(180deg); }
+  .cardimg { position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
+             border-radius:10px; }
   .cardimg.rev { transform: rotate(180deg); }
-  .face { transform: rotateY(0deg); }
-  .back { transform: rotateY(180deg); }
-  .card:hover .face { transform: rotateY(180deg); } .card:hover .back { transform: rotateY(360deg); }
-  .corner { position:absolute; width: 14px; height: 14px; pointer-events:none; z-index: 4; border: 2px solid var(--gold); }
-  .corner.tl { left: 35px; top: 12px; border-right: 0; border-bottom: 0; } .corner.tr { right: 35px; top: 12px; border-left: 0; border-bottom: 0; }
-  .corner.bl { left: 35px; top: 273px; border-right: 0; border-top: 0; } .corner.br { right: 35px; top: 273px; border-left: 0; border-top: 0; }
-  .plaque { position:absolute; left: 16px; right: 16px; top: 294px; text-align:center; font: 700 10.5px/1.2 "Cinzel Decorative", serif; color: var(--gold); letter-spacing: 1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-shadow: 0 1px 0 rgba(0,0,0,0.6); }
-  .read { position:absolute; left: 20px; right: 20px; top: 314px; text-align:center; font: 500 italic 11.5px/1.3 "Cormorant Garamond", serif; color: #F1E3C8; display:-webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow:hidden; }
-  .read b { font-weight: 600; font-style: normal; color: #F7EBD2; margin-right: 4px; }
+  .frame  { position:absolute; inset:4px; border:1px solid rgba(31,33,41,0.10);
+            border-radius:8px; z-index:3; pointer-events:none; }
+  .ctop   { position:absolute; left:0; right:0; top:0; z-index:2;
+            padding:12px 12px 22px; text-align:center;
+            background: linear-gradient(to bottom, rgba(242,240,230,0.95) 42%, rgba(242,240,230,0.0)); }
+  .caption { position:absolute; left:0; right:0; bottom:0; z-index:2;
+             padding:30px 12px 12px; text-align:center;
+             background: linear-gradient(to top, rgba(18,16,12,0.94) 38%, rgba(18,16,12,0.0)); }
+  .cname  { font-family:${mono}; font-size:8px; letter-spacing:1.2px; text-transform:uppercase;
+            color:${T.ink}; }
+  .chead  { font-family:${serif}; font-style:italic; font-size:14px; color:${T.onDark};
+            margin-top:4px; line-height:1.15; }
+  .cread  { font-family:${serif}; font-style:italic; font-size:11px; color:${T.onDarkDim};
+            margin-top:5px; line-height:1.38; }
 `;
+
 const dayOfYear = () => {
   const now = new Date();
   return Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
@@ -464,19 +470,33 @@ const dayOfYear = () => {
 const hash = (n) => { let x = (n * 2654435761) >>> 0; x ^= x >>> 13; x = (x * 2246822519) >>> 0; return (x ^ (x >>> 16)) >>> 0; };
 
 export const render = () => {
-  const doy = dayOfYear(); const c = DECK[doy % DECK.length]; const reversed = hash(doy + 101) % 2 === 1;
-  const heading = reversed ? c.rHeading : c.heading; const reading = reversed ? c.rReading : c.reading;
+  const doy = dayOfYear();
+  const c = DECK[doy % DECK.length];
+  const reversed = hash(doy + 101) % 2 === 1;
+  const heading = reversed ? c.rHeading : c.heading;
+  const reading = reversed ? c.rReading : c.reading;
+
   return (
     <div aria-label={`Tarot for today: ${c.name}${reversed ? " reversed" : ""}. ${heading} ${reading}`}>
       <DragHandle k="tarot" />
       <ResizeHandle k="tarot" />
-      <div className="card" title="Hover to turn the card">
-        <div className="face"><img className={`cardimg ${reversed ? "rev" : ""}`} src={`daily-tarot.widget/cards-png/${c.file}`} /></div>
-        <div className="back"><img className="cardimg" src="daily-tarot.widget/cards-png/CardBacks.png" /></div>
+      <div className="card">
+        <div className="face">
+          <img className="cardimg" src="daily-tarot.widget/cards-png/CardBacks.png" />
+          <div className="frame" />
+        </div>
+        <div className="back">
+          <img className={`cardimg ${reversed ? "rev" : ""}`} src={`daily-tarot.widget/cards-png/${c.file}`} />
+          <div className="frame" />
+          <div className="ctop">
+            <div className="cname">{c.name}{reversed ? " · reversed" : " · upright"}</div>
+          </div>
+          <div className="caption">
+            <div className="chead">{heading}</div>
+            <div className="cread">{reading}</div>
+          </div>
+        </div>
       </div>
-      <span className="corner tl" /><span className="corner tr" /><span className="corner bl" /><span className="corner br" />
-      <div className="plaque">{reversed ? "⟲ " : ""}{c.name}</div>
-      <div className="read"><b>{heading}</b>{reading}</div>
     </div>
   );
 };

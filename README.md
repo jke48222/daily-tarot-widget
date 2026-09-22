@@ -1,6 +1,6 @@
 # daily-tarot
 
-> A daily Rider-Waite-Smith tarot card on a velvet table, with its upright or reversed reading.
+> A daily Rider-Waite-Smith tarot card with its upright/reversed reading.
 
 [![Release](https://img.shields.io/github/v/release/jke48222/daily-tarot-widget?label=release)](https://github.com/jke48222/daily-tarot-widget/releases/latest) [![License: MIT](https://img.shields.io/github/license/jke48222/daily-tarot-widget)](LICENSE) ![Platform: macOS](https://img.shields.io/badge/platform-macOS-lightgrey)
 
@@ -12,17 +12,13 @@ runs on any Mac with no extra files beyond the bundled assets.
 
 <img src="media/screenshot.png" width="45%"> <img src="media/daily-tarot-back.png" width="45%">
 
-The reading is laid on burgundy velvet inside a thin gilt fillet: the card large in a gold edge with corner brackets, the name set in an engraved decorative capital face, and the reading in an italic old-style serif. Hover turns the card over to its back; the draw is stable all day. Typefaces: Cinzel Decorative and Cormorant Garamond. All fonts are under the SIL Open Font License; see `daily-tarot.widget/fonts/OFL.txt`.
-
-## Before and after
-
-![Before and after](media/before-after.png)
-
 ### On the desktop
 
 The widget running alongside the full set:
 
-![The Übersicht widget suite composed on one desktop](https://raw.githubusercontent.com/jke48222/widget-suite/main/homescreen.png)
+![The Übersicht widget suite running on a desktop](https://raw.githubusercontent.com/jke48222/widget-suite/main/homescreen.gif)
+
+[Full-resolution video](media/homescreen.mp4)
 
 ## Requirements
 
@@ -68,23 +64,19 @@ the inlined design-system block at the top of `index.jsx`.
 
 ## Related widgets
 
-Part of the [Übersicht Widget Suite](https://github.com/jke48222/widget-suite): 16 widgets that share one design system.
+Part of the [Übersicht Widget Suite](https://github.com/jke48222/widget-suite): 12 widgets that share one design system.
 
-- [Agent Fleet](https://github.com/jke48222/agent-fleet-widget)
 - [Animated Wallpaper](https://github.com/jke48222/animated-wallpaper-widget)
 - [Clipboard History](https://github.com/jke48222/clipboard-history-widget)
 - [Daily AI Prompt](https://github.com/jke48222/daily-ai-prompt-widget)
 - [Daily Astronomy Photo](https://github.com/jke48222/daily-astronomy-photo-widget)
 - [GitHub Contributions](https://github.com/jke48222/github-contributions-widget)
-- [Keys & Pads](https://github.com/jke48222/keys-and-pads-widget)
 - [Now Playing](https://github.com/jke48222/now-playing-widget)
-- [Pi Fleet](https://github.com/jke48222/pi-fleet-widget)
 - [Recent Album Covers](https://github.com/jke48222/recent-album-covers-widget)
 - [Recent Downloads](https://github.com/jke48222/recent-downloads-widget)
 - [Rotating 3D Model](https://github.com/jke48222/rotating-3d-model-widget)
 - [Spinning Globe](https://github.com/jke48222/spinning-globe-widget)
 - [Wallpaper Switcher](https://github.com/jke48222/wallpaper-switcher-widget)
-- [Window Pet](https://github.com/jke48222/window-pet-widget)
 
 ## License
 
