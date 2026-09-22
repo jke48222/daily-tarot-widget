@@ -131,7 +131,7 @@ const card = (variant, w, h, x = 0, y = 0) => `
   .ws-drag  { position:absolute; top:6px; left:6px; z-index:30;
               width:18px; height:18px; border-radius:6px;
               display:flex; align-items:center; justify-content:center;
-              font-size:11px; line-height:1; cursor:grab; opacity:0.22;
+              font-size:11px; line-height:1; cursor:grab; opacity:0.42;
               transition:opacity .15s ease; user-select:none;
               -webkit-user-select:none;
               color:${variant === "dark" ? T.onDarkMute : T.inkMute};
@@ -143,7 +143,7 @@ const card = (variant, w, h, x = 0, y = 0) => `
   .ws-resize { position:absolute; bottom:5px; right:5px; z-index:30;
                width:16px; height:16px; border-radius:5px;
                display:flex; align-items:center; justify-content:center;
-               font-size:11px; line-height:1; cursor:nwse-resize; opacity:0.22;
+               font-size:11px; line-height:1; cursor:nwse-resize; opacity:0.42;
                transition:opacity .15s ease; user-select:none;
                -webkit-user-select:none;
                color:${variant === "dark" ? T.onDarkMute : T.inkMute};
@@ -425,42 +425,34 @@ const DECK = [
          file: `${sName}${String(ri + 1).padStart(2, "0")}.png` }))),
 ];
 
-export const className = card("light", 180, 240, ...LAYOUT.tarot) + `
-  background: transparent; box-shadow: none; backdrop-filter: none; overflow: visible;
-  padding: 0; display: flex; align-items: center; justify-content: center;
-  .card   { width:140px; height:240px; border-radius:10px;
-            transform:rotate(-3deg); position:relative;
-            transition: transform 0.5s ease 0.12s;
-            transform-style: preserve-3d; -webkit-transform-style: preserve-3d; }
-  .card:hover { transform: rotate(-3deg) rotateY(180deg); }
-  @media (prefers-reduced-motion: reduce) {
-    .card { transition: none; }
-    .card:hover { transform: rotate(-3deg); }
-  }
-  .face, .back { position:absolute; inset:0; border-radius:10px; overflow:hidden;
-                 background:transparent; box-shadow:0 8px 22px rgba(0,0,0,0.32);
-                 backface-visibility:hidden; -webkit-backface-visibility:hidden; }
-  .face   { transform: rotateY(0deg); }
-  .back   { transform: rotateY(180deg); }
-  .cardimg { position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
-             border-radius:10px; }
+const FONTS = "daily-tarot.widget/fonts";
+// A reading laid on velvet: the card in a gilt edge on a deep purple cloth
+// with a fine gold rule, a brass plaque engraved with the card's name, and
+// the reading set in an italic serif beneath. Hover turns the card over.
+export const className = card("light", 210, 338, ...LAYOUT.tarot) + `
+  @font-face { font-family: "Cinzel"; src: url("${FONTS}/Cinzel-700.woff2") format("woff2"); font-weight: 700; }
+  @font-face { font-family: "Cormorant Garamond"; src: url("${FONTS}/CormorantGaramond-500Italic.woff2") format("woff2"); font-weight: 500; font-style: italic; }
+  --gold: #D4AF37; --cream: #EDE3CF;
+  padding: 0; border-radius: 14px; backdrop-filter: none; overflow: hidden; user-select:none; -webkit-user-select:none;
+  background: radial-gradient(160px 220px at 50% 38%, #4E2168 0%, #2B1140 58%, #170A21 100%);
+  box-shadow: 0 26px 50px rgba(0,0,0,0.55), inset 0 0 0 6px transparent, inset 0 0 0 7px rgba(212,175,55,0.45), inset 0 0 0 9px rgba(212,175,55,0.12);
+  &::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:0.55; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E"); }
+  .ws-drag { top: 12px; left: 12px; color: rgba(237,227,207,0.7); background: rgba(255,255,255,0.08); } .ws-resize { bottom: 12px; right: 12px; color: rgba(237,227,207,0.7); background: rgba(255,255,255,0.08); }
+  .card { position:absolute; left: 41px; top: 18px; width: 128px; height: 220px; border-radius: 8px; transform: rotate(-2deg); transition: transform 0.6s ease 0.1s; transform-style: preserve-3d; -webkit-transform-style: preserve-3d; }
+  .card:hover { transform: rotate(-2deg) rotateY(180deg); }
+  @media (prefers-reduced-motion: reduce) { .card { transition:none; } .card:hover { transform: rotate(-2deg); } }
+  .face, .back { position:absolute; inset:0; border-radius: 8px; overflow:hidden; background: #1a0f22; box-shadow: 0 0 0 2px var(--gold), 0 0 0 3px rgba(0,0,0,0.5), 0 14px 26px rgba(0,0,0,0.55); backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .face { transform: rotateY(0deg); } .back { transform: rotateY(180deg); }
+  .cardimg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .cardimg.rev { transform: rotate(180deg); }
-  .frame  { position:absolute; inset:4px; border:1px solid rgba(31,33,41,0.10);
-            border-radius:8px; z-index:3; pointer-events:none; }
-  .ctop   { position:absolute; left:0; right:0; top:0; z-index:2;
-            padding:12px 12px 22px; text-align:center;
-            background: linear-gradient(to bottom, rgba(242,240,230,0.95) 42%, rgba(242,240,230,0.0)); }
-  .caption { position:absolute; left:0; right:0; bottom:0; z-index:2;
-             padding:30px 12px 12px; text-align:center;
-             background: linear-gradient(to top, rgba(18,16,12,0.94) 38%, rgba(18,16,12,0.0)); }
-  .cname  { font-family:${mono}; font-size:8px; letter-spacing:1.2px; text-transform:uppercase;
-            color:${T.ink}; }
-  .chead  { font-family:${serif}; font-style:italic; font-size:14px; color:${T.onDark};
-            margin-top:4px; line-height:1.15; }
-  .cread  { font-family:${serif}; font-style:italic; font-size:11px; color:${T.onDarkDim};
-            margin-top:5px; line-height:1.38; }
+  .plaque { position:absolute; left: 30px; right: 30px; top: 250px; height: 24px; border-radius: 3px; background: linear-gradient(180deg, #EACB6E 0%, #C99E3A 45%, #A57E27 100%); box-shadow: 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.3);
+            font: 700 7.5px/24px "Cinzel", serif; letter-spacing: 1.2px; text-transform:uppercase; color: #3A2A0A; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding: 0 14px; text-shadow: 0 1px 0 rgba(255,255,255,0.35); }
+  .plaque::before, .plaque::after { content:""; position:absolute; top: 9px; width: 5px; height: 5px; border-radius:50%; background: radial-gradient(circle at 40% 35%, #F3DE8E, #7B5A14 70%); box-shadow: inset 0 0 0 1px rgba(0,0,0,0.35); }
+  .plaque::before { left: 5px; } .plaque::after { right: 5px; }
+  .read { position:absolute; left: 18px; right: 18px; top: 282px; text-align:center; color: var(--cream); font: italic 500 13px/1.25 "Cormorant Garamond", Georgia, serif; }
+  .read b { display:block; font-weight: 500; font-size: 15px; margin-bottom: 3px; color: #F6EAD0; }
+  .read span { display:block; font-size: 11.5px; color: rgba(237,227,207,0.78); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 `;
-
 const dayOfYear = () => {
   const now = new Date();
   return Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
@@ -470,33 +462,18 @@ const dayOfYear = () => {
 const hash = (n) => { let x = (n * 2654435761) >>> 0; x ^= x >>> 13; x = (x * 2246822519) >>> 0; return (x ^ (x >>> 16)) >>> 0; };
 
 export const render = () => {
-  const doy = dayOfYear();
-  const c = DECK[doy % DECK.length];
-  const reversed = hash(doy + 101) % 2 === 1;
-  const heading = reversed ? c.rHeading : c.heading;
-  const reading = reversed ? c.rReading : c.reading;
-
+  const doy = dayOfYear(); const c = DECK[doy % DECK.length]; const reversed = hash(doy + 101) % 2 === 1;
+  const heading = reversed ? c.rHeading : c.heading; const reading = reversed ? c.rReading : c.reading;
   return (
     <div aria-label={`Tarot for today: ${c.name}${reversed ? " reversed" : ""}. ${heading} ${reading}`}>
       <DragHandle k="tarot" />
       <ResizeHandle k="tarot" />
       <div className="card">
-        <div className="face">
-          <img className="cardimg" src="daily-tarot.widget/cards-png/CardBacks.png" />
-          <div className="frame" />
-        </div>
-        <div className="back">
-          <img className={`cardimg ${reversed ? "rev" : ""}`} src={`daily-tarot.widget/cards-png/${c.file}`} />
-          <div className="frame" />
-          <div className="ctop">
-            <div className="cname">{c.name}{reversed ? " · reversed" : " · upright"}</div>
-          </div>
-          <div className="caption">
-            <div className="chead">{heading}</div>
-            <div className="cread">{reading}</div>
-          </div>
-        </div>
+        <div className="face"><img className="cardimg" src="daily-tarot.widget/cards-png/CardBacks.png" /></div>
+        <div className="back"><img className={`cardimg ${reversed ? "rev" : ""}`} src={`daily-tarot.widget/cards-png/${c.file}`} /></div>
       </div>
+      <div className="plaque">{c.name}</div>
+      <div className="read"><b>{reversed ? "⟲ " : ""}{heading}</b><span>{reading}</span></div>
     </div>
   );
 };
