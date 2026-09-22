@@ -1,6 +1,6 @@
 # daily-tarot
 
-> A daily Rider-Waite-Smith tarot card with its upright/reversed reading.
+> A daily Rider-Waite-Smith tarot card on a velvet table, with its upright or reversed reading.
 
 [![Release](https://img.shields.io/github/v/release/jke48222/daily-tarot-widget?label=release)](https://github.com/jke48222/daily-tarot-widget/releases/latest) [![License: MIT](https://img.shields.io/github/license/jke48222/daily-tarot-widget)](LICENSE) ![Platform: macOS](https://img.shields.io/badge/platform-macOS-lightgrey)
 
@@ -11,6 +11,12 @@ entire widget lives in `index.jsx` (the shared design system is inlined), so it
 runs on any Mac with no extra files beyond the bundled assets.
 
 <img src="media/screenshot.png" width="45%"> <img src="media/daily-tarot-back.png" width="45%">
+
+The reading is laid on burgundy velvet inside a thin gilt fillet: the card large in a gold edge with corner brackets, the name set in an engraved decorative capital face, and the reading in an italic old-style serif. Hover turns the card over to its back; the draw is stable all day. Typefaces: Cinzel Decorative and Cormorant Garamond. All fonts are under the SIL Open Font License; see `daily-tarot.widget/fonts/OFL.txt`.
+
+## Before and after
+
+![Before and after](media/before-after.png)
 
 ### On the desktop
 
